@@ -13,4 +13,4 @@
 ### Run in GUI:
 <code>python SonicEdit.py</code>
 
-Saves edited audio file(s) to same directory as imported audio file.
+Saves edited audio file to same directory as imported audio file.
