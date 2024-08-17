@@ -99,10 +99,13 @@ class SonicEdit(QMainWindow):
             db_increase = self.sliders[i].value()
             AUD_1 = Edit.EQUALIZER(AUD_1, self.SPL_RTE, db_increase, low, high)
         
-        AUD_1 = np.int16(AUD_1 / np.max(np.abs(AUD_1)) * 32767)
-        
+        AUD_1 = AUD_1 / np.max(np.abs(AUD_1))
+        FCT_CLP = 0.9998 # 32766
+        AUD_1 = AUD_1 * FCT_CLP
+        AUD_1_int16 = np.int16(AUD_1 * 32767)
         AUD_1_PATH = f"{os.path.splitext(self.AUD_PATH)[0]}_equalized.wav"
-        sf.write(AUD_1_PATH, AUD_1, self.SPL_RTE, format='wav')
+        sf.write(AUD_1_PATH, AUD_1_int16, self.SPL_RTE, format='wav')
+
         print(f"[LOG] EXPORT -> Exported file to: {AUD_1_PATH}")
 
 if __name__ == '__main__':
